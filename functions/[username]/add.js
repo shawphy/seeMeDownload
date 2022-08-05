@@ -20,20 +20,23 @@ export async function onRequestPost({request, env, params}) {
         await env.SEE_ME_DOWNLOAD.put(params.username,JSON.stringify(userdata))
         return new Response(JSON.stringify(userdata,null,2),{
           headers: {
+            'Access-Control-Allow-Origin': '*',
             //   'content-type': 'text/html;charset=UTF-8',
           }
         })
     }
     return new Response("Hello, world!",{
         headers: {
-              'content-type': 'text/html;charset=UTF-8',
+            'Access-Control-Allow-Origin': '*',
+            'content-type': 'text/html;charset=UTF-8',
         }
     })
 }
 export async function onRequestGet({request, env, params}) {
     return new Response(content_html,{
         headers: {
-              'content-type': 'text/html;charset=UTF-8',
+            'Access-Control-Allow-Origin': '*',
+            'content-type': 'text/html;charset=UTF-8',
         }
     })
 }
