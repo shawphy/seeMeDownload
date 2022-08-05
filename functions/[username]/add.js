@@ -66,6 +66,13 @@ const content_html=`<!DOCTYPE html>
     <label for="content_text">Description</label>
     <textarea name="content_text" id="content_text"></textarea>
     <button>Submit</button>
+    <a id="bookmark" href="">Fill the token and Drag this to bookmark</a>
   </form>
+  <script>
+    document.querySelector("#token").onchange=function(){
+        console.log(document.querySelector("#token").value)
+        document.querySelector("#bookmark").href=\`javascript:var formData = new FormData();formData.append("url",location.href);formData.append("title",document.querySelector("h1").textContent);formData.append("magnet",document.querySelectorAll("a[href^='magnet']")[0].href);formData.append("token","\${document.querySelector("#token").value}");if(confirm(JSON.stringify(Object.fromEntries(formData.entries()),null,2))){fetch("\${location.href}",{method: 'POST',body:formData,}).then(response => response.text()).then(data => {alert('Success:', data);}).catch((error) => {alert('Error:', error);});}\`
+    }
+  </script>
 </body>
 </html>`
