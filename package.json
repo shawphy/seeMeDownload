@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "jsonfeed-to-rss": "^3.0.6"
+  }
+}
