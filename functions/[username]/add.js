@@ -1,4 +1,10 @@
 export async function onRequestPost({request, env, params}) {
+    const corsHeaders = {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET,HEAD,POST,OPTIONS',
+        'Access-Control-Max-Age': '86400',
+      };
+      
     const user = await env.SEE_ME_DOWNLOAD.get(params.username)
     let userdata=JSON.parse(user)
     const formData = await request.formData()
@@ -20,14 +26,14 @@ export async function onRequestPost({request, env, params}) {
         await env.SEE_ME_DOWNLOAD.put(params.username,JSON.stringify(userdata))
         return new Response(JSON.stringify(userdata,null,2),{
           headers: {
-            'Access-Control-Allow-Origin': '*',
+            ...corsHeaders,
             //   'content-type': 'text/html;charset=UTF-8',
           }
         })
     }
     return new Response("Hello, world!",{
         headers: {
-            'Access-Control-Allow-Origin': '*',
+            ...corsHeaders,          
             'content-type': 'text/html;charset=UTF-8',
         }
     })
