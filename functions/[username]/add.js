@@ -73,6 +73,7 @@ const content_html=`<!DOCTYPE html>
         console.log(document.querySelector("#token").value)
         document.querySelector("#bookmark").href=\`javascript:var formData = new FormData();formData.append("url",location.href);formData.append("title",document.querySelector("h1").textContent);formData.append("magnet",document.querySelectorAll("a[href^='magnet']")[0].href);formData.append("token","\${document.querySelector("#token").value}");if(confirm(JSON.stringify(Object.fromEntries(formData.entries()),null,2))){fetch("\${location.href}",{method: 'POST',body:formData,}).then(response => response.text()).then(data => {alert('Success:', data);}).catch((error) => {alert('Error:', error);});}\`
     }
+    document.querySelector("#token").onchange()
   </script>
 </body>
 </html>`
