@@ -21,17 +21,17 @@ export async function onRequestPost({request, env, params}) {
                 }
             ]
         }
-        console.log(formData.get("magnet"))
         userdata.data.items.push(item)
         await env.SEE_ME_DOWNLOAD.put(params.username,JSON.stringify(userdata))
-        return new Response(JSON.stringify(userdata,null,2),{
+        return new Response(JSON.stringify(item,null,2),{
           headers: {
             ...corsHeaders,
-            //   'content-type': 'text/html;charset=UTF-8',
+            'content-type': 'text/html;charset=UTF-8',
           }
         })
     }
-    return new Response("Hello, world!",{
+    return new Response("Wrong Token",{
+        status:401,
         headers: {
             ...corsHeaders,          
             'content-type': 'text/html;charset=UTF-8',
@@ -71,7 +71,7 @@ const content_html=`<!DOCTYPE html>
   <script>
     document.querySelector("#token").onchange=function(){
         console.log(document.querySelector("#token").value)
-        document.querySelector("#bookmark").href=\`javascript:var formData = new FormData();formData.append("url",location.href);formData.append("title",document.querySelector("h1").textContent);formData.append("magnet",document.querySelectorAll("a[href^='magnet']")[0].href);formData.append("token","\${document.querySelector("#token").value}");if(confirm(JSON.stringify(Object.fromEntries(formData.entries()),null,2))){fetch("\${location.href}",{method: 'POST',body:formData,}).then(response => response.text()).then(data => {alert('Success:', data);}).catch((error) => {alert('Error:', error);});}\`
+        document.querySelector("#bookmark").href=\`javascript:var formData = new FormData();formData.append("url",location.href);formData.append("title",document.title);formData.append("magnet",document.querySelectorAll("a[href^='magnet']")[0].href);formData.append("token","\${document.querySelector("#token").value}");if(confirm(JSON.stringify(Object.fromEntries(formData.entries()),null,2))){fetch("\${location.href}",{method: 'POST',body:formData,}).then(response => response.text()).then(data => {alert('Success:', data);}).catch((error) => {alert('Error:', error);});}\`
     }
     document.querySelector("#token").onchange()
   </script>
